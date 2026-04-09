@@ -1,0 +1,30 @@
+-- initialize
+git init
+-- add all files to staging
+git add .
+-- commit your files
+git commit -m "initial commit"
+-- set main branch (for new repo)
+git branch -m main
+-- connect to remote repo
+git remote add origin https://github.com/your-username/your-repo.git
+-- push to remote repo
+git push -u origin main
+
+--DONE!
+
+-- After any changes
+git add.
+git commit -m "updated readme"
+git push
+-- errors : hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+-- in case of errors
+git pull
+-- it will take to vim mode
+-- save and exit the vim mode: 
+esc  :wq enter (without saving: esc :q! enter)
+-- git push
+
+--DONE!
