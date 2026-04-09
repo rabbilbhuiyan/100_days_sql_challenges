@@ -35,6 +35,7 @@ on e. manager_id = m. emp_id
 where e.salary > m.salary
 
 /* give the manager's name for each employee */
+
 select 
 	e.emp_name, 
 	m.emp_name as manager_name
