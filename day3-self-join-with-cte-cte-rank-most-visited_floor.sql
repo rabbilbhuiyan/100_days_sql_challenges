@@ -15,6 +15,7 @@ Most visited floor
 List of distinct resources used
 */
 
+
 drop table if exists entries;
 create table entries (
 	name varchar(20),
@@ -62,8 +63,7 @@ where rnk = 1
 
 /* now for total visit */
 
-/* for sqlite use this code */
-
+/* combine three cte */
 with distinct_resources as (
 select name, group_concat(resources) as used_resources
 from
