@@ -1,3 +1,20 @@
+/*
+A company allows only one entry per employee per day.
+However, employees found a loophole:
+they can enter multiple times using different email IDs.
+You are given an entries table that logs:
+employee name
+address
+email used
+floor visited
+resource used
+🎯 Your task is to write an SQL query that returns:
+For each person:
+Total number of visits
+Most visited floor
+List of distinct resources used
+*/
+
 drop table if exists entries;
 create table entries (
 	name varchar(20),
@@ -45,3 +62,35 @@ where rnk = 1
 
 /* now for total visit */
 
+/* for sqlite use this code */
+
+with distinct_resources as (
+select name, group_concat(resources) as used_resources
+from
+(SELECT DISTINCT name, resources FROM entries)
+group by name),
+
+total_visits as (
+select 
+name, floor, resources,
+count(name) as total_visit
+from entries
+group by name),
+
+most_visit as(
+select 
+    name, floor, (resources),
+    rank() over(partition by name order by count(name)) as rnk
+from entries
+group by name)
+
+select 
+    mv.name, mv.floor as most_visited_floor, 
+    tv.total_visit as total_visits,
+    dr.used_resources as used_resources
+from most_visit mv
+inner join total_visits tv
+on mv.name = tv.name
+inner join distinct_resources dr 
+on mv.name = dr.name
+where mv.rnk = 1;
